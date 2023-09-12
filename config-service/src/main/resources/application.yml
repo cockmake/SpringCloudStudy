@@ -6,7 +6,11 @@ eureka:
     appname: configservice
 server:
   port: 7777
-
 spring:
   application:
     name: configservice
+  cloud:
+    config:
+      server:
+        git:
+          uri:
