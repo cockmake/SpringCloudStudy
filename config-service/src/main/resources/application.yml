@@ -14,5 +14,5 @@ spring:
     config:
       server:
         git:
-          uri: file:///D:/Spring-Project/cloud/config
+          uri: https://github.com/cockmake/SpringCloudStudy.git
           default-label: config
