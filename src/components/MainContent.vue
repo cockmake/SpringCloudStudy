@@ -1,7 +1,9 @@
 <script setup>
-import {changeSaleState, get_search_result, search_result} from "../vars.js";
-import {reactive, ref} from "vue";
+import {changeSaleState, get_search_result, isRoot, search_result} from "../vars.js";
+import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
+import {Cart2} from "@nutui/icons-vue";
+import {ElMessage} from "element-plus";
 const dialogFormVisible = ref(false)
 
 const form = reactive({
@@ -29,6 +31,45 @@ function updateConfirm() {
     dialogFormVisible.value = false
   })
 }
+onMounted(() => {
+
+})
+function buy(item) {
+  let username = localStorage.getItem("username")
+  if(username !== null){
+    axios.post("/api/order/add",{
+      product_id: item.product_id,
+      username: username,
+      price: item.price
+    })
+        .then((resp) => {
+          if(resp.data === "操作成功！"){
+            ElMessage({
+              type: "success",
+              message: "购买成功请查看订单！",
+              duration: 2000
+            })
+          }else{
+            ElMessage({
+              type: "error",
+              message: "服务器故障，购买失败！",
+              duration: 2000
+            })
+          }
+        })
+        .catch((err) => {
+
+        })
+  }else{
+    ElMessage({
+      type: 'error',
+      message: "请重新登录",
+      duration: 3000
+    })
+  }
+
+
+}
 </script>
 
 <template>
@@ -46,11 +87,22 @@ function updateConfirm() {
         shopName="计2001自营店>">
       <template #footer>
         <div style="display: flex; flex-direction: row; flex-wrap: nowrap;">
-          <span style="justify-self: center; align-self: center; white-space: nowrap">剩余{{item.stock}}</span>
-          <nut-button @click="updateProductInfo(item)">修改</nut-button>
-          <nut-button @click="changeSaleState(item)" type="danger">
-            {{item.on_sale === 1 ? '下架' : '重新上架'}}
-          </nut-button>
+          <div v-if="isRoot">
+            <span style="justify-self: center; align-self: center; white-space: nowrap">剩余{{item.stock}}</span>
+            <nut-button @click="updateProductInfo(item)">修改</nut-button>
+            <nut-button @click="changeSaleState(item)" type="danger">
+              {{item.on_sale === 1 ? '下架' : '重新上架'}}
+            </nut-button>
+          </div>
+          <div v-else>
+            <nut-button type="danger" @click="buy(item)">
+              <template #icon>
+                <Cart2/>
+              </template>
+              购买
+            </nut-button>
+          </div>
+
         </div>
       </template>
       <template>

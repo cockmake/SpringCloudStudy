@@ -1,9 +1,8 @@
 <script setup>
 import {order_table_result, order_filter_changed, total, tableHeaderClass} from "../vars.js";
 import {Calendar, Search} from "@element-plus/icons-vue";
-import router from "../routers.js";
 import {order_table_args} from "../vars.js";
-import {onMounted, ref} from "vue";
+import {onMounted} from "vue";
 import axios from "axios";
 import PersonCenter from "./PersonCenter.vue";
 
@@ -13,7 +12,6 @@ const tableRowClassName = ({row, rowIndex}) => {
   }
   return 'warning-row'
 }
-
 
 function sortChange({column, prop, order}) {
   if(prop === 'createdData'){
@@ -91,9 +89,6 @@ function aaa(a) {
               </el-icon>
               <span>全部订单</span>
             </el-radio-button>
-            <el-radio-button label="未支付">
-              <span>未支付</span>
-            </el-radio-button>
             <el-radio-button label="待收货">
               <span>待收货</span>
             </el-radio-button>
@@ -128,8 +123,7 @@ function aaa(a) {
             <el-table-column prop="status" label="订单状态"/>
             <el-table-column fixed="right" label="Operations" width="290">
               <template #default="scope">
-                <div style="display: flex; flex-direction: row; justify-content: space-between">
-                  <el-button type="primary">查看详细</el-button>
+                <div style="display: flex; flex-direction: row; justify-content: space-around">
                   <el-popover
                       v-if="showConfirm(scope.row.status)"
                       title="提示"

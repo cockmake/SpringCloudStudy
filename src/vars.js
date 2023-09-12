@@ -22,6 +22,7 @@ export function get_search_result() {
             categories.push(search_args.categories[i].category)
         }
     }
+
     axios.post('/api/product/filter', {
         searchContent: search_args.search_content,
         remained: search_args.remained,
@@ -72,24 +73,45 @@ export const order_table_args = reactive({
 })
 export const total = ref(0)
 export const order_table_result = ref([
+
 ])
+
 export function order_filter_changed() {
-    axios.post('/api/order/filter', {
-        currentPage: order_table_args.currentPage,
-        currentSize: order_table_args.currentSize,
-        searchKey: order_table_args.searchKey,
-        status: order_table_args.status,
-        priceOrder: order_table_args.priceOrder,
-        dateOrder: order_table_args.dateOrder,
-        username: localStorage.getItem('username')
-    })
-    .then(resp => {
-        total.value = resp.data.total
-        order_table_result.value = resp.data.records
-    })
-    .catch(err => {
-        console.log(err)
-    })
+    if (localStorage.getItem("root") === "root"){
+        axios.post('/api/order/superfilter', {
+            currentPage: order_table_args.currentPage,
+            currentSize: order_table_args.currentSize,
+            searchKey: order_table_args.searchKey,
+            status: order_table_args.status,
+            priceOrder: order_table_args.priceOrder,
+            dateOrder: order_table_args.dateOrder,
+        })
+            .then(resp => {
+                total.value = resp.data.total
+                order_table_result.value = resp.data.records
+            })
+            .catch(err => {
+
+            })
+    }else{
+        axios.post('/api/order/filter', {
+            currentPage: order_table_args.currentPage,
+            currentSize: order_table_args.currentSize,
+            searchKey: order_table_args.searchKey,
+            status: order_table_args.status,
+            priceOrder: order_table_args.priceOrder,
+            dateOrder: order_table_args.dateOrder,
+            username: localStorage.getItem('username')
+        })
+        .then(resp => {
+            total.value = resp.data.total
+            order_table_result.value = resp.data.records
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
 }
 export function tableHeaderClass({column, columnIndex }) {
    if (column.property === 'createdData'){
@@ -114,5 +136,11 @@ export function changeSaleState(row) {
         })
 }
 
-
+export const isRoot = ref(false)
+function getRoot() {
+    if(localStorage.getItem("root") === "root"){
+        isRoot.value = true
+    }
+}
+getRoot()
 
