@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.5.1:8801/eureka/, http://192.168.5.1:8802/eureka/
+      defaultZone: http://10.22.3.10:8801/eureka/, http://10.22.3.10:8802/eureka/
   instance:
     appname: gatewayservice
 
@@ -20,6 +20,7 @@ spring:
             allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
+
       # 路由配置
       routes:
         - id: orderservice
@@ -31,6 +32,12 @@ spring:
           uri: lb://productservice  # 路由转发地址
           predicates:
             - Path=/api/product/**
+
+        - id: userservice
+          uri: lb://userservice
+          predicates:
+            - Path=/api/user/**
+
 
 server:
   port: 8080

@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.mapper.ProductMapper;
@@ -18,9 +17,9 @@ import java.util.Map;
 @Validated
 @Controller
 public class ProductController {
-    // 提取当前页面中的所有public方法
     @Resource
     ProductMapper productMapper;
+
     @ResponseBody
     @GetMapping("/api/product/all")
     public List<Product> getAllProduct(){
@@ -97,6 +96,7 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/api/product/add")
     public Object addProduct(@RequestBody Product product){
+        System.out.println(product);
         Map<String, Object> result = new HashMap<>();
         try{
             productMapper.insert(product);
@@ -111,6 +111,7 @@ public class ProductController {
     @ResponseBody
     @PostMapping("/api/product/update")
     public Object updateProduct(@RequestBody Product product){
+        System.out.println(product);
         Map<String, Object> result = new HashMap<>();
         try{
             productMapper.updateById(product);

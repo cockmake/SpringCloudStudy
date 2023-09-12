@@ -1,8 +1,10 @@
 package entity.order;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +18,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @TableName("orders")
 public class Order {
-    @TableId(value = "order_id")
+    @TableId(value = "order_id", type = IdType.AUTO)
     public @Unsigned BigInteger orderId;
 
     @TableField(value = "order_price")
+    @JsonProperty("price")
     public @Unsigned Double price;
 
     @TableField(value = "created_date")
@@ -31,6 +34,11 @@ public class Order {
     @TableField(value = "updated_date")
     public Timestamp updatedData;
 
+    @JsonProperty("product_id")
     @TableField(value = "product_id")
-    public Integer productId;
+    public BigInteger productId;
+
+    @TableField(value = "username")
+    @JsonProperty("username")
+    public String username;
 }

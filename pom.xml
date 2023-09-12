@@ -22,6 +22,7 @@
         <module>main-service</module>
         <module>gateway-service</module>
         <module>config-service</module>
+      <module>user-service</module>
     </modules>
     <properties>
         <java.version>17</java.version>

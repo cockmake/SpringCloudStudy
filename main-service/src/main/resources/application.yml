@@ -5,7 +5,7 @@ eureka:
   client:
     # 需要指向eureka注册中心的地址
     service-url:
-      defaultZone: http://192.168.5.1:8801/eureka/, http://192.168.5.1:8802/eureka/
+      defaultZone: http://10.22.3.10:8801/eureka/, http://10.22.3.10:8802/eureka/
   instance:
     appname: mainservice
 

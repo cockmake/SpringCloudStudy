@@ -1,7 +1,6 @@
 spring:
   application:
-    name: productservice
-
+    name: userservice
 springdoc:
   api-docs:
     enabled: true
@@ -11,4 +10,4 @@ eureka:
     service-url:
       defaultZone: http://10.22.3.10:8801/eureka/, http://10.22.3.10:8802/eureka/
   instance:
-    appname: productservice
+    appname: userservice

@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://192.168.5.1:8801/eureka/, http://192.168.5.1:8802/eureka/
+      defaultZone: http://10.22.3.10:8801/eureka/, http://10.22.3.10:8802/eureka/
   instance:
     appname: configservice
 
@@ -14,5 +14,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/cockmake/SpringCloudStudy.git
+          uri: file:///D:/Spring-Project/cloud/config
           default-label: config

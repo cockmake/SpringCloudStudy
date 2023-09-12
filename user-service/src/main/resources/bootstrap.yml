@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: userservice
+      uri: http://localhost:7777
+      profile: dev
+      label: config
