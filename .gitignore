@@ -2,6 +2,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+**pycache**
+
 
 ### STS ###
 .apt_generated
@@ -17,7 +19,6 @@ target/
 *.iws
 *.iml
 *.ipr
-./config/
 
 ### NetBeans ###
 /nbproject/private/
