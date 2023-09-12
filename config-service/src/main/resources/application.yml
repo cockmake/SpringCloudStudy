@@ -1,0 +1,12 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.5.1:8801/eureka/, http://192.168.5.1:8802/eureka/
+  instance:
+    appname: configservice
+server:
+  port: 7777
+
+spring:
+  application:
+    name: configservice

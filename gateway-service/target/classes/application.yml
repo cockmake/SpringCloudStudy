@@ -1,0 +1,36 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.5.1:8801/eureka/, http://192.168.5.1:8802/eureka/
+  instance:
+    appname: gatewayservice
+
+spring:
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+  application:
+    name: gatewayservice
+  cloud:
+    # 网关配置
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      # 路由配置
+      routes:
+        - id: orderservice
+          uri: lb://orderservice
+          predicates:
+            - Path=/api/order/**
+
+        - id: productservice
+          uri: lb://productservice  # 路由转发地址
+          predicates:
+            - Path=/api/product/**
+
+server:
+  port: 8080

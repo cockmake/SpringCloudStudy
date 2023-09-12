@@ -1,0 +1,21 @@
+server:
+  port: 8802
+eureka:
+  client:
+    # 从eureka获取注册信息
+    fetch-registry: true
+    # 将自己注册到eureka
+    register-with-eureka: true
+    # 需要指向eureka注册中心的地址
+    service-url:
+      defaultZone: http://master:8801/eureka
+  instance:
+    ip-address: 192.168.5.1
+    hostname: master02
+
+spring:
+  application:
+    name: master02
+#  cloud:
+#    inetutils:
+#      preferred-networks: 192.168.5.1
