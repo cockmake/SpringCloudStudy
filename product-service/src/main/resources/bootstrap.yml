@@ -1,6 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/zhspcs
-    username: root
-    password: make5211314
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    config:
+      name: productservice
+      uri: http://localhost:7777
+      profile: dev
+      label: config
