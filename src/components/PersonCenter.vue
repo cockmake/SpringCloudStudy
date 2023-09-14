@@ -106,7 +106,7 @@ function confirmRegister() {
   }
   if(registerForm.password !== registerForm.re_password){
     ElMessage({
-      type: 'success',
+      type: 'warning',
       message: "两次密码输入不一致！",
       duration: 3000
     })
