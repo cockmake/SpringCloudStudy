@@ -19,4 +19,6 @@ public class ProductFilter {
     public Double minPrice;
     @JsonProperty(value = "max_price")
     public Double maxPrice;
+    @JsonProperty(value = "username")
+    public String username;
 }

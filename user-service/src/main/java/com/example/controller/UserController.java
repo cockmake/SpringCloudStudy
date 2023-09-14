@@ -31,4 +31,21 @@ public class UserController {
             return new User();
         }
     }
+    @ResponseBody
+    @PostMapping("/api/user/register")
+    public Object UserRegister(@RequestBody User user){
+        System.out.println(user);
+        QueryWrapper<User> userQueryWrapper = Wrappers
+                .<User>query()
+                .eq("username", user.username);
+        try{
+            if(userMapper.selectOne(userQueryWrapper) != null){
+                return "用户名已存在";
+            }
+            userMapper.insert(user);
+            return "注册成功";
+        }catch (Exception e){
+            return "注册失败";
+        }
+    }
 }

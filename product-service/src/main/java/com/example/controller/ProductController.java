@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Validated
 @Controller
@@ -66,6 +67,9 @@ public class ProductController {
                 .in("category", productFilter.categories)
                 .in("origin", productFilter.origins)
                 .like("description", productFilter.searchContent);
+        if(productFilter.username == null || !productFilter.username.equals("make")){
+            queryWrapper.eq("on_sale", 1);
+        }
         if (productFilter.minPrice != null){
             queryWrapper.ge("price", productFilter.minPrice);
         }

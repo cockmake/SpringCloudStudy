@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @TableName("users")
 public class User {
     @TableField("username")
+    @JsonProperty("username")
     public String username;
 
     @TableField("email")

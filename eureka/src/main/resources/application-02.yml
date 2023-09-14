@@ -10,7 +10,7 @@ eureka:
     service-url:
       defaultZone: http://master:8801/eureka
   instance:
-    ip-address: 10.22.3.10
+    ip-address: 10.22.8.78
     hostname: master02
 
 spring:
@@ -18,4 +18,4 @@ spring:
     name: master02
 #  cloud:
 #    inetutils:
-#      preferred-networks: 10.22.3.10
+#      preferred-networks: 10.22.8.78
