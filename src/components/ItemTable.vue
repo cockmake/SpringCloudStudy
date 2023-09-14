@@ -23,17 +23,10 @@ onMounted(() => {
               }))
         }
         init_search_result()
-        // for (let i = 0; i < resp.data.categories.length; i++) {
-        //   search_args.categories[i].checked = false
-        // }
-        // for (let i = 0; i < resp.data.origins.length; i++) {
-        //   search_args.origins[i].checked = false
-        // }
       })
       .catch((err) => {
         console.log(err)
       })
-
 })
 
 const product = reactive({

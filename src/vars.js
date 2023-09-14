@@ -32,12 +32,12 @@ export function get_search_result() {
         origins: origins,
         username: localStorage.getItem("username")
     })
-    .then((resp) => {
-        search_result.value = resp.data
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+        .then((resp) => {
+            search_result.value = resp.data
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 }
 export function init_search_result(){
     let origins = []
@@ -105,23 +105,23 @@ export function order_filter_changed() {
             dateOrder: order_table_args.dateOrder,
             username: localStorage.getItem('username')
         })
-        .then(resp => {
-            total.value = resp.data.total
-            order_table_result.value = resp.data.records
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            .then(resp => {
+                total.value = resp.data.total
+                order_table_result.value = resp.data.records
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
 }
 export function tableHeaderClass({column, columnIndex }) {
-   if (column.property === 'createdData'){
-       column.order = order_table_args.dateOrder
-   }else if(column.property === 'price'){
-         column.order = order_table_args.priceOrder
-   }
-   return 'header-class-demo'
+    if (column.property === 'createdData'){
+        column.order = order_table_args.dateOrder
+    }else if(column.property === 'price'){
+        column.order = order_table_args.priceOrder
+    }
+    return 'header-class-demo'
 }
 export function changeSaleState(row) {
     axios.get('/api/product/changeSaleState', {

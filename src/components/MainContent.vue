@@ -6,15 +6,7 @@ import {Cart2} from "@nutui/icons-vue";
 import {ElMessage} from "element-plus";
 const dialogFormVisible = ref(false)
 
-const form = reactive({
-  product_id: null,
-  price: null,
-  origin: null,
-  description: null,
-  category: null,
-  img_url: null,
-  stock: null
-})
+
 function updateProductInfo(row) {
   form.product_id = row.product_id
   form.price = row.price
@@ -25,6 +17,15 @@ function updateProductInfo(row) {
   form.stock = row.stock
   dialogFormVisible.value = true
 }
+const form = reactive({
+  product_id: null,
+  price: null,
+  origin: null,
+  description: null,
+  category: null,
+  img_url: null,
+  stock: null
+})
 function updateConfirm() {
   axios.post('/api/product/update', form).then(res => {
     get_search_result()
@@ -67,8 +68,6 @@ function buy(item) {
       duration: 3000
     })
   }
-
-
 }
 </script>
 
