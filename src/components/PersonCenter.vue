@@ -4,8 +4,6 @@ import {onMounted, reactive, ref} from "vue";
 import axios from "axios";
 import {ElMessage} from "element-plus";
 import {get_search_result, isRoot} from "../vars.js";
-import * as path from "path";
-
 onMounted(() => {
   if (router.currentRoute.value.name === 'order'){
     button_desc.value = '商城主页'
@@ -90,6 +88,61 @@ function login(){
 }
 const current_username = ref(null)
 const centerDialogVisible = ref(false)
+const registerDialogVisible = ref(false)
+function register() {
+  registerForm.username = ''
+  registerForm.password = ''
+  registerForm.re_password = ''
+  registerDialogVisible.value = true
+}
+function confirmRegister() {
+  if(registerForm.username === '' || registerForm.password === '' || registerForm.re_password === ''){
+    ElMessage({
+      type: 'warning',
+      message: "输入框不允许为空！",
+      duration: 3000
+    })
+    return
+  }
+  if(registerForm.password !== registerForm.re_password){
+    ElMessage({
+      type: 'success',
+      message: "两次密码输入不一致！",
+      duration: 3000
+    })
+    return
+  }
+  axios.post("/api/user/register", {
+    username: registerForm.username,
+    password: registerForm.password
+  })
+      .then(resp => {
+        if(resp.data === "注册成功"){
+          ElMessage({
+            type: 'success',
+            message: "注册成功！欢迎登录。",
+            duration: 3000
+          })
+          registerDialogVisible.value = false
+        }else{
+          ElMessage({
+            type: 'error',
+            message: "注册失败！服务器出错。",
+            duration: 3000
+          })
+        }
+      })
+      .catch(err => {
+
+      })
+  // 先进行校验
+
+}
+const registerForm = reactive({
+  username: '',
+  password: '',
+  re_password: ''
+})
 onMounted(() => {
   current_username.value = localStorage.getItem("username")
   if (current_username.value === null){
@@ -119,12 +172,43 @@ onMounted(() => {
       </el-form-item>
     </el-form>
 
+    <el-dialog
+        v-model="registerDialogVisible"
+        title="注册"
+        width="45%"
+        append-to-body
+        align-center>
+      <el-form
+          label-position="top"
+          label-width="100px"
+          :model="registerForm">
+        <el-form-item label="用户名：">
+          <el-input size="large" v-model="registerForm.username" />
+        </el-form-item>
+        <el-form-item label="密码：">
+          <el-input size="large" v-model="registerForm.password"  type="password"/>
+        </el-form-item>
+        <el-form-item label="确认密码：">
+          <el-input size="large" v-model="registerForm.re_password"  type="password"/>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+      <span class="dialog-footer">
+          <el-button size="large" type="primary" @click="confirmRegister">
+            确定注册
+          </el-button>
+      </span>
+      </template>
+
+    </el-dialog>
+
     <template #footer>
       <span class="dialog-footer">
-        <el-button size="large" @click="centerDialogVisible = false">取消</el-button>
-        <el-button size="large" type="primary" @click="login">
-          登录
-        </el-button>
+          <el-button size="large" type="info" @click="register" style="margin-right: 40%;">注册</el-button>
+          <el-button size="large" @click="centerDialogVisible = false">取消</el-button>
+          <el-button size="large" type="primary" @click="login">
+            登录
+          </el-button>
       </span>
     </template>
   </el-dialog>

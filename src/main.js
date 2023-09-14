@@ -7,7 +7,7 @@ import axios from "axios";
 import router from "./routers.js";
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
-axios.defaults.baseURL = "http://127.0.0.1:8080"
+axios.defaults.baseURL = "http://10.22.8.78:8080"
 
 const app = createApp(App)
 app.use(ElementPlus, {

@@ -29,7 +29,8 @@ export function get_search_result() {
         categories: categories,
         min_price: search_args.min_price,
         max_price: search_args.max_price,
-        origins: origins
+        origins: origins,
+        username: localStorage.getItem("username")
     })
     .then((resp) => {
         search_result.value = resp.data
@@ -54,6 +55,7 @@ export function init_search_result(){
         origins: origins,
         min_price: search_args.min_price,
         max_price: search_args.max_price,
+        username: localStorage.getItem("username")
     })
         .then((resp) => {
             search_result.value = resp.data
