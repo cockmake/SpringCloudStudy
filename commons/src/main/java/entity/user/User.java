@@ -15,13 +15,10 @@ public class User {
     @TableField("username")
     @JsonProperty("username")
     public String username;
-
     @TableField("email")
     public String email;
-
     @TableField("root")
     public String root;
-
     @JsonProperty("password")
     public String password;
 }
